@@ -41,6 +41,7 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     private var productArray: [Product] = []
+    private var productShopCart: [(Product,Int)] = []
     
     
     func setProducts(_ products: [Product]) {
@@ -54,7 +55,14 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @objc private func rigthButtonAction(sender: UIBarButtonItem) {
-        print(sender)
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        
+        print(productShopCart)
+        
+        if let shopViewController = storyboard.instantiateViewController(withIdentifier: "shopViewController") as? ShopViewController {
+            shopViewController.setShoppingProducts(productShopCart)
+            navigationController?.pushViewController(shopViewController, animated: true)
+        }
     }
     
     
@@ -86,8 +94,24 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
         productDetail.substractStock(by: 1)
         cell.updateStock(newStock: productDetail.stock)
         
-        
+        if !inStockProduct(product: productDetail) {
+            productShopCart.append((productDetail, 1))
+        }
+    
     }
+    
+    private func inStockProduct(product: Product) -> Bool {
+        
+        for i in 0 ..< productShopCart.count {
+            if productShopCart[i].0.name == product.name {
+                productShopCart[i].1 += 1
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     
     func productTableViewCell(buyActionFor cell: ProductTableViewCell) {
         guard let indexPath = productTableView.indexPath(for: cell) else { return }
