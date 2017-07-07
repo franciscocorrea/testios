@@ -9,10 +9,16 @@
 import Foundation
 import UIKit
 
+protocol ShopTableViewCellDelegate: class {
+    func shopTableViewCell(removeActionFor cell: ShopTableViewCell)
+}
+
 class ShopTableViewCell: UITableViewCell {
     
     @IBOutlet private weak var nameProductLabel: UILabel!
     @IBOutlet private weak var cantShopCartLabel: UILabel!
+    
+    weak var delegate: ShopTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,6 +37,6 @@ class ShopTableViewCell: UITableViewCell {
     }
 
     @IBAction func removeProductAction(_ sender: UIButton) {
-        //code
+        delegate?.shopTableViewCell(removeActionFor: self)
     }
 }

@@ -9,7 +9,15 @@
 import Foundation
 import UIKit
 
-class ShopViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+protocol ShopViewControllerDelegate: class {
+    func shopViewController(productToRemoveFromCart product: Product)
+}
+
+class ShopViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ShopTableViewCellDelegate {
+    
+    @IBOutlet weak var cartTableView: UITableView!
+    
+    weak var delegate: ShopViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +31,6 @@ class ShopViewController: UIViewController, UITableViewDataSource, UITableViewDe
         productShopCart = shopCart
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return productShopCart.count
     }
@@ -36,10 +43,23 @@ class ShopViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let product = productShopCart[indexPath.row].0
         let cant = productShopCart[indexPath.row].1
         cell.fillData(nameProduct: product.name, cantProduct: cant)
+        cell.delegate = self
         
         return cell
     }
-    
+ 
+    func shopTableViewCell(removeActionFor cell: ShopTableViewCell) {
+        guard let indexPath = cartTableView.indexPath(for: cell) else { return }
+        var productTuple = productShopCart[indexPath.row]
+        guard productTuple.1 > 0 else { return }
+        productTuple.1 -= 1
+        print(productTuple.1)
+        cartTableView.reloadRows(at: [indexPath], with: .automatic)
+        delegate?.shopViewController(productToRemoveFromCart: productTuple.0)
+        
+        
+        // TODO: verificar si llega a cero, eliminar toda la celda.
+    }
 }
 
 

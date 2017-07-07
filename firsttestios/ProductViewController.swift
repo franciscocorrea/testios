@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ProductViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ProductTableViewCellDelegate {
+class ProductViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ProductTableViewCellDelegate, ShopViewControllerDelegate {
     
     @IBOutlet private weak var productTableView: UITableView!
     @IBOutlet private weak var cantProductLabel: UILabel! {
@@ -35,14 +35,13 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    private var productArray: [Product] = []
+    private var productShopCart: [(Product,Int)] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         createButtonNavigationBar()
     }
-    
-    private var productArray: [Product] = []
-    private var productShopCart: [(Product,Int)] = []
-    
     
     func setProducts(_ products: [Product]) {
        productArray = products
@@ -61,6 +60,7 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if let shopViewController = storyboard.instantiateViewController(withIdentifier: "shopViewController") as? ShopViewController {
             shopViewController.setShoppingProducts(productShopCart)
+            shopViewController.delegate = self
             navigationController?.pushViewController(shopViewController, animated: true)
         }
     }
@@ -112,7 +112,6 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
         return false
     }
     
-    
     func productTableViewCell(buyActionFor cell: ProductTableViewCell) {
         guard let indexPath = productTableView.indexPath(for: cell) else { return }
         let product = productArray[indexPath.row]
@@ -120,7 +119,8 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
         addDataProduct(productDetail: product, cell: cell)
     }
     
-    
-    
-    
+    func shopViewController(productToRemoveFromCart product: Product) {
+        product.addProductStock(by: 1)
+        productTableView.reloadData()
+    }
 }

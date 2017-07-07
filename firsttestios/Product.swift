@@ -37,7 +37,4 @@ class Product {
     func addProductStock(by cant: Int) {
         stock += cant
     }
-    
-    
-
 }

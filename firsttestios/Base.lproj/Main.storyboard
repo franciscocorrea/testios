@@ -272,6 +272,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="cartTableView" destination="IAZ-I7-D0H" id="FUN-av-xYY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BuQ-3i-Y6E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
