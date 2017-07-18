@@ -20,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB5D52BE1F1E4ED100200FD3 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		AF056DED1F03E46E00218154 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		AF056DEF1F03EE4A00218154 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		AF5445471F0EC1F500F126C5 /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +49,7 @@
 		AF056DEB1F03DD8400218154 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				AB5D52BE1F1E4ED100200FD3 /* MyPlayground.playground */,
 				AFD9AC3E1F02F9FD008A8ED8 /* HomeViewController.swift */,
 				AF056DED1F03E46E00218154 /* ProductViewController.swift */,
 				AF056DEF1F03EE4A00218154 /* Product.swift */,
